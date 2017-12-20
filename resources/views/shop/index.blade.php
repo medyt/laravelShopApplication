@@ -29,6 +29,6 @@
             @endforeach        
         @endforeach       
     </table>
-    <a href="login.php" class="button">Login</a>
+    <a href="{{ route('product.login') }}" class="button">Login</a>
     <a href="{{ route('product.shoppingCart') }}" class="button" role="button">Go to cart</a>
 @endsection

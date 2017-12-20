@@ -23,3 +23,7 @@ Route::get('/shopping-cart', [
     'uses' => 'ProductController@getCart',
     'as' => 'product.shoppingCart'
 ]);
+Route::get('/login', [
+    'uses' => 'ProductController@login',
+    'as' => 'product.login'
+]);

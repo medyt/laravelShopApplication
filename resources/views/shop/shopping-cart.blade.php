@@ -29,4 +29,6 @@
             @endforeach    
         @endif
     </table>    
+    <a href="{{ route('product.index') }}" class="button" role="button">Go to index</a>
+    <a href="login.php" class="button">Checkout</a>    
 @endsection

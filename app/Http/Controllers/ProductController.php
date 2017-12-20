@@ -34,4 +34,12 @@ class ProductController extends Controller
         $cart = new Cart($oldCart);
         return view('shop.shopping-cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);    
     }
+    public function login(Request $request) {
+        if (!Session::has('isLoggedIn')) {
+            //$request->session()->put('isLoggedIn',true);
+            return view('shop.login');
+        } else {
+            return view('shop.product');
+        }
+    }
 }
