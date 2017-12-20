@@ -11,22 +11,23 @@
             <th>Specification</th>
             <th>Add</th>
         </tr>
-        @if(Session::has('cart'))
-            @foreach($products as $product)
-            <tr>
-                <td>
-                    <img class ="image" src="public/photo/photo-{{ $product['item']['id'] }}.jpg">
-                </td>
-                <td>                        
-                    <p>title : {{ $product['item']['title'] }} <br/> 
-                    description : {{ $product['item']['description'] }} <br/> 
-                    price : {{ $product['price'] }} </p>
-                </td>
-                <td>
+        @if (Session::has('cart'))
+            @for ($i=0; $i < count($products); $i++)
+                <tr>
+                    <td>
+                        <img class ="image" src="public/photo/photo-{{$products->ids[$i]}}.jpg">
+                    </td>
+                    <td>                        
+                        <p>title : {{ $products->titles[$i] }} <br/> 
+                        description : {{ $products->descriptions[$i] }} <br/> 
+                        price : {{ $products->prices[$i] }} </p>
+                    </td>
+                    <td>
+                        <a href="{{ route('product.removeFromCart', ['id' => $products->ids[$i]]) }}" class="btn" role="button">Remove</a>
+                    </td>
                     
-                </td>
-            </tr>
-            @endforeach    
+                </tr>
+            @endfor
         @endif
     </table>    
     <a href="{{ route('product.index') }}" class="button" role="button">Go to index</a>

@@ -4,30 +4,37 @@ namespace App;
 
 class Cart
 {
-    public $items = null;
-    public $totalQty = 0;
-    public $totalPrice = 0;
+    public $ids = array();
+    public $titles = array();
+    public $descriptions = array();
+    public $prices = array();   
 
     public function __construct($oldCart)
     {
         if($oldCart) {
-            $this->items = $oldCart ->items;
-            $this->totalQty = $oldCart ->totalQty;
-            $this->totalPrice = $oldCart ->totalPrice;
+            $this->ids = $oldCart ->ids;
+            $this->titles = $oldCart ->titles;
+            $this->descriptions = $oldCart ->descriptions;
+            $this->prices = $oldCart ->prices;
         }
     }
-    public function add($item, $id)
+    public function add($item)
     {
-        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
-        if ($this->items) {
-            if (array_key_exists($id, $this->items)) {
-                $storedItem = $this->items[$id];
-            }
+        if (!array_key_exists($item->id, $this->ids)) {
+            $this->ids[] = $item ->id;
+            $this->titles[] = $item ->title;
+            $this->descriptions[] = $item ->description;
+            $this->prices[] = $item ->price;
+        }       
+    }
+    public function remove($item)
+    {
+        if (!is_null(array_key_exists($item->id, $this->ids))) {
+            $key = array_search($item->id, $this->ids);
+            array_splice($this->ids, $key, 1);
+            array_splice($this->titles, $key, 1);
+            array_splice($this->descriptions, $key, 1);
+            array_splice($this->prices, $key, 1);
         }
-        $storedItem['qty']++;
-        $storedItem['price'] = $item->price * $storedItem['qty'];
-        $this->items[$id] = $storedItem;
-        $this->totalQty++;
-        $this->totalPrice += $item->price;
     }
 }
