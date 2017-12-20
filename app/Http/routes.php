@@ -39,3 +39,7 @@ Route::get('/index',[
     'uses' => 'ProductController@logout',
     'as' => 'product.logout'
 ]);
+Route::post('/checkout',[
+    'uses' => 'ProductController@checkout',
+    'as' => 'product.checkout'
+]);
