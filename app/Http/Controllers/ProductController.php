@@ -20,12 +20,14 @@ class ProductController extends Controller
     }
     public function getCart() 
     {
-        if (!Session::has('cart')) {
-            return view('shop.shopping-cart');
+        $oldCart = Session::has('cart') ? Session::get('cart') :null;
+        $cart = new Cart($oldCart);
+        if (count($cart->ids) == 0) {
+            return view('shop.shopping-cart', ['display' => false]);
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-        return view('shop.shopping-cart', ['products' => $cart]);    
+        return view('shop.shopping-cart', ['display' => true ,'products' => $cart]);    
     }
     public function getAddToCart(Request $request, $id) 
     {
@@ -44,7 +46,7 @@ class ProductController extends Controller
         $cart = new Cart($oldCart);
         $cart->remove($product);
         $request->session()->put('cart',$cart);
-        return redirect()->route('product.index'); 
+        return redirect()->route('product.index');        
     }    
     public function login(Request $request) 
     {
@@ -64,8 +66,7 @@ class ProductController extends Controller
             } else {
                 echo "Wrong username or password";
             }
-        } 
-        
+        }         
     }
     public function logout(Request $request) 
     {        

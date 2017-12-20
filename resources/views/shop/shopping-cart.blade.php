@@ -5,6 +5,7 @@
 @endsection
 @section('content')
     <h1>Online Store</h1>  
+    @if ($display)
     <table>
         <tr>
             <th>Photo</th>
@@ -30,6 +31,7 @@
             @endfor
         @endif
     </table>    
+    @endif
     <a href="{{ route('product.index') }}" class="button" role="button">Go to index</a>
     <a href="login.php" class="button">Checkout</a>    
 @endsection
