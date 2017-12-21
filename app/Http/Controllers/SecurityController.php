@@ -31,7 +31,11 @@ class SecurityController extends Controller
     }
     public function getProduct()
     {
-        return view('user.product', ['id' => null]);
+        if (Session::get('username') == env("LOGIN_USERNAME") && Session::get('isLoggedIn')) {
+            return view('user.product', ['id' => null]);
+        } else {
+            echo trans('messages.You must be logged in');
+        }
     }
     public function addProduct()
     {
