@@ -31,19 +31,35 @@ Route::get('/login', [
     'uses' => 'ProductController@login',
     'as' => 'product.login'
 ]);
-Route::post('/products',[
+Route::post('/products', [
     'uses' => 'ProductController@loginSet',
     'as' => 'product.loginSet'
 ]);
-Route::get('/index',[
+Route::get('/index', [
     'uses' => 'ProductController@logout',
     'as' => 'product.logout'
 ]);
-Route::post('/checkout',[
+Route::post('/checkout', [
     'uses' => 'ProductController@checkout',
     'as' => 'product.checkout'
 ]);
-Route::get('/products',[
+Route::get('/products', [
     'uses' => 'SecurityController@getProducts',
     'as' => 'security.products'
+]);
+Route::get('/delete/{id}', [
+    'uses' => 'SecurityController@deleteProduct',
+    'as' => 'security.delete'
+]);
+Route::get('/update/{id}', [
+    'uses' => 'SecurityController@updateProduct',
+    'as' => 'security.update'
+]);
+Route::get('/product', [
+    'uses' => 'SecurityController@getProduct',
+    'as' => 'security.product'
+]);
+Route::post('/product', [
+    'uses' => 'SecurityController@addProduct',
+    'as' => 'security.addproduct'
 ]);

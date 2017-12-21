@@ -23,6 +23,7 @@ return [
     'Save' => 'SAVE',
     'Posibilities' => 'POSIBILITIES',
     'Image' => 'IMAGE',
+    'Update' => 'Update',
     'Online Store' => 'ONLINE STORE',
     'Dear' => 'Dear',
     'My contact details is' => 'My contact details is',
