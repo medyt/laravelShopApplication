@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Cart;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -15,8 +14,8 @@ class ProductController extends Controller
     {
         //$products = Product::all();
         $inCart = Session::get('cart');
-        if ($inCart) {
-            $products = Product::select('*')->whereNotIn('id', $inCart->ids)->get();
+        if ($inCart!=null) {
+            $products = Product::whereNotIn('id', $inCart)->get();
         } else {
             $products = Product::all();
         }
@@ -24,39 +23,34 @@ class ProductController extends Controller
     }
     public function getCart() 
     {
-        $oldCart = Session::has('cart') ? Session::get('cart') :null;
-        $cart = new Cart($oldCart);
-        if (count($cart->ids) == 0) {
+        $inCart = Session::has('cart') ? Session::get('cart') :null;
+        if (count($inCart) == 0) {
             return view('shop.shopping-cart', ['display' => false]);
-        }
-        $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
-        return view('shop.shopping-cart', ['display' => true ,'products' => $cart]);    
+        } else {
+            $products = Product::whereIn('id', $inCart)->get();
+            return view('shop.shopping-cart', ['display' => true ,'products' => $products]);  
+        }         
     }
     public function getAddToCart(Request $request, $id) 
     {
-        $product = Product::find($id);
-        $oldCart = Session::has('cart') ? Session::get('cart') :null;
-        $cart = new Cart($oldCart);
-        $cart->add($product);
-        $request->session()->put('cart',$cart);
+        $inCart = Session::has('cart') ? Session::get('cart') :null;
+        $inCart[] = $id;
+        $request->session()->put('cart',$inCart);
         return redirect()->route('product.index');
     }
     public function getRemoveFromCart(Request $request, $id) 
     {
-        $product = Product::find($id);
-        $oldCart = Session::has('cart') ? Session::get('cart') :null;
-        $cart = new Cart($oldCart);
-        $cart->remove($product);
-        $request->session()->put('cart',$cart);
-        return redirect()->route('product.index');        
+        $inCart = Session::has('cart') ? Session::get('cart') :null;
+        array_splice($inCart, array_search($id, $inCart), 1);
+        $request->session()->put('cart',$inCart); 
+        return redirect()->route('product.shoppingCart');       
     }    
     public function login(Request $request) 
     {
         if (!$request->session()->get('isLoggedIn')) {
             return view('shop.login');
         } else {
-            return view('shop.products');
+            return redirect()->route('security.products');
         }
     }
     public function loginSet(Request $request)
@@ -65,7 +59,7 @@ class ProductController extends Controller
             if ($_POST['username'] == env("LOGIN_USERNAME") && $_POST['password'] == env("LOGIN_PASSWORD")) {
                 $request->session()->put('isLoggedIn',true);
                 $request->session()->put('username',env("LOGIN_USERNAME"));
-                return view('shop.products');
+                return redirect()->route('security.products');
             } else {
                 echo trans('messages.Wrong username or password');
             }

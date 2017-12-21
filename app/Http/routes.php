@@ -19,7 +19,7 @@ Route::get('/add-to-cart/{id}', [
     'uses' => 'ProductController@getAddToCart',
     'as' => 'product.addToCart'
 ]);
-Route::get('/remove-from-cart/{id}', [
+Route::get('/shopping-cart/{id}', [
     'uses' => 'ProductController@getRemoveFromCart',
     'as' => 'product.removeFromCart'
 ]);
@@ -42,4 +42,8 @@ Route::get('/index',[
 Route::post('/checkout',[
     'uses' => 'ProductController@checkout',
     'as' => 'product.checkout'
+]);
+Route::get('/products',[
+    'uses' => 'SecurityController@getProducts',
+    'as' => 'security.products'
 ]);

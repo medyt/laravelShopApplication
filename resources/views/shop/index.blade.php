@@ -11,8 +11,7 @@
             <th><?= trans('messages.Specification') ?></th>
             <th><?= trans('messages.Add') ?></th>
         </tr>
-        @foreach($products->chunk(3) as $productChunk)
-            @foreach($productChunk as $product)
+        @foreach($products as $product)
             <tr>
                 <td>
                     <img class ="image" src="public/photo/photo-{{$product->id}}.jpg">
@@ -25,8 +24,7 @@
                 <td>
                     <a href="{{ route('product.addToCart', ['id' => $product->id]) }}" class="button" role="button"><?= trans('messages.Add') ?></a>
                 </td>
-            </tr>
-            @endforeach        
+            </tr>        
         @endforeach       
     </table>
     <a href="{{ route('product.login') }}" class="button"><?= trans('messages.Login') ?></a>

@@ -12,23 +12,21 @@
                 <th><?= trans('messages.Specification') ?></th>
                 <th><?= trans('messages.Add') ?></th>
             </tr>
-            @if (Session::has('cart'))
-                @for ($i=0; $i < count($products); $i++)
-                    <tr>
-                        <td>
-                            <img class ="image" src="public/photo/photo-{{$products->ids[$i]}}.jpg">
-                        </td>
-                        <td>                        
-                            <p><?= trans('messages.title') ?> : {{ $products->titles[$i] }} <br/> 
-                            <?= trans('messages.description') ?> : {{ $products->descriptions[$i] }} <br/> 
-                            <?= trans('messages.price') ?> : {{ $products->prices[$i] }} </p>
-                        </td>
-                        <td>
-                            <a href="{{ route('product.removeFromCart', ['id' => $products->ids[$i]]) }}" class="button" role="button"><?= trans('messages.Remove') ?></a>
-                        </td>                        
-                    </tr>
-                @endfor
-            @endif
+            @foreach($products as $product)
+                <tr>
+                    <td>
+                        <img class ="image" src="public/photo/photo-{{$product->id}}.jpg">
+                    </td>
+                    <td>                        
+                        <p><?= trans('messages.title') ?> : {{ $product->title }} <br/> 
+                        <?= trans('messages.description') ?> : {{ $product->description }} <br/> 
+                        <?= trans('messages.price') ?> : {{ $product->price }} </p>
+                    </td>
+                    <td>
+                        <a href="{{ route('product.removeFromCart', ['id' => $product->id]) }}" class="button" role="button"><?= trans('messages.Remove') ?></a>
+                    </td>                        
+                </tr>
+            @endforeach
         </table>    
     @endif
     <div>

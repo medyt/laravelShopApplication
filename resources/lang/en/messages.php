@@ -27,6 +27,7 @@ return [
     'Dear' => 'Dear',
     'My contact details is' => 'My contact details is',
     'Your products is' => 'Your products is',
+    'You must be logged in' => 'You must be logged in',
     'Enter Username and Password' => 'Enter Username and Password',
     'You have cleaned session' => 'You have cleaned session',
     'Wrong username or password' => 'Wrong username or password',
