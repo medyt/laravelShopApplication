@@ -23,7 +23,7 @@ class ProductController extends Controller
     }
     public function getCart() 
     {
-        $inCart = Session::has('cart') ? Session::get('cart') : null;
+        $inCart = Session::has('cart') ? Session::get('cart') : [];
         if (count($inCart) == 0) {
             return view('shop.shopping-cart', ['display' => false]);
         } else {
@@ -33,14 +33,14 @@ class ProductController extends Controller
     }
     public function getAddToCart(Request $request, $id) 
     {
-        $inCart = Session::has('cart') ? Session::get('cart') :null;
+        $inCart = Session::has('cart') ? Session::get('cart') :[];
         $inCart[] = $id;
         $request->session()->put('cart',$inCart);
         return redirect()->route('product.index');
     }
     public function getRemoveFromCart(Request $request, $id) 
     {
-        $inCart = Session::has('cart') ? Session::get('cart') :null;
+        $inCart = Session::has('cart') ? Session::get('cart') :[];
         array_splice($inCart, array_search($id, $inCart), 1);
         $request->session()->put('cart',$inCart); 
         return redirect()->route('product.shoppingCart');       
@@ -73,7 +73,7 @@ class ProductController extends Controller
     }
     public function checkout(Request $request)
     {
-        $inCart = Session::has('cart') ? Session::get('cart') :null;
+        $inCart = Session::has('cart') ? Session::get('cart') :[];
         $products = Product::whereIn('id', $inCart)->get();
         //dd($products);
         $msg = '<html><body>';
@@ -93,7 +93,7 @@ class ProductController extends Controller
         $headers = 'From: Your name <info@address.com>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
         mail(env("CHECKOUT_EMAIL"), "My order", $msg, $headers);
-        $request->session()->put('cart',null); 
+        $request->session()->put('cart',[]); 
         return redirect()->route('product.index');
     }
 }
