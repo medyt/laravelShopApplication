@@ -47,23 +47,25 @@ Route::post('/checkout', [
     'uses' => 'ProductController@checkout',
     'as' => 'product.checkout'
 ]);
-Route::get('/products', [
-    'uses' => 'SecurityController@getProducts',
-    'as' => 'security.products'
-])->middleware('admin');
-Route::get('/delete/{id}', [
-    'uses' => 'SecurityController@deleteProduct',
-    'as' => 'security.delete'
-])->middleware('admin');
-Route::get('/update/{id}', [
-    'uses' => 'SecurityController@updateProduct',
-    'as' => 'security.update'
-])->middleware('admin');
-Route::get('/product', [
-    'uses' => 'SecurityController@getProduct',
-    'as' => 'security.product'
-])->middleware('admin');
-Route::post('/product', [
-    'uses' => 'SecurityController@addProduct',
-    'as' => 'security.addproduct'
-])->middleware('admin');
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/products', [
+        'uses' => 'SecurityController@getProducts',
+        'as' => 'security.products'
+    ]);
+    Route::get('/delete/{id}', [
+        'uses' => 'SecurityController@deleteProduct',
+        'as' => 'security.delete'
+    ]);
+    Route::get('/update/{id}', [
+        'uses' => 'SecurityController@updateProduct',
+        'as' => 'security.update'
+    ]);
+    Route::get('/product', [
+        'uses' => 'SecurityController@getProduct',
+        'as' => 'security.product'
+    ]);
+    Route::post('/product', [
+        'uses' => 'SecurityController@addProduct',
+        'as' => 'security.addproduct'
+    ]);
+});
