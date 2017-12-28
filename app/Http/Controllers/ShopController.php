@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Session;
 
-class ProductController extends Controller
+class ShopController extends Controller
 {
     public function getSpa ()
     {

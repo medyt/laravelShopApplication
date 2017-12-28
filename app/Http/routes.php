@@ -12,39 +12,39 @@
 */
 
 Route::get('/spa', [
-    'uses' => 'ProductController@getSpa',
+    'uses' => 'ShopController@getSpa',
     'as' => 'product.index'
 ]);
 Route::get('/', [
-    'uses' => 'ProductController@getIndex',
+    'uses' => 'ShopController@getIndex',
     'as' => 'product.index'
 ]);
 Route::get('/add-to-cart/{id}', [
-    'uses' => 'ProductController@getAddToCart',
+    'uses' => 'ShopController@getAddToCart',
     'as' => 'product.addToCart'
 ]);
 Route::get('/shopping-cart/{id}', [
-    'uses' => 'ProductController@getRemoveFromCart',
+    'uses' => 'ShopController@getRemoveFromCart',
     'as' => 'product.removeFromCart'
 ]);
 Route::get('/shopping-cart', [
-    'uses' => 'ProductController@getCart',
+    'uses' => 'ShopController@getCart',
     'as' => 'product.shoppingCart'
 ]);
 Route::get('/login', [
-    'uses' => 'ProductController@login',
+    'uses' => 'ShopController@login',
     'as' => 'product.login'
 ]);
-Route::post('/products', [
-    'uses' => 'ProductController@loginSet',
+Route::post('/login', [
+    'uses' => 'ShopController@loginSet',
     'as' => 'product.loginSet'
 ]);
 Route::get('/index', [
-    'uses' => 'ProductController@logout',
+    'uses' => 'ShopController@logout',
     'as' => 'product.logout'
 ]);
 Route::post('/checkout', [
-    'uses' => 'ProductController@checkout',
+    'uses' => 'ShopController@checkout',
     'as' => 'product.checkout'
 ]);
 Route::group(['middleware' => 'admin'], function () {

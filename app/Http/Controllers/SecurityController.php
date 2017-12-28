@@ -12,7 +12,7 @@ class SecurityController extends Controller
     public function getProducts() 
     {
         $products = Product::all();
-        return view('user.products', ['products' => $products]);        
+        return view('admin.products', ['products' => $products]);        
     }
     public function deleteProduct($id)
     {
@@ -22,11 +22,11 @@ class SecurityController extends Controller
     }
     public function updateProduct($id)
     {
-        return view('user.product' , ['id' => $id]);
+        return view('admin.product' , ['id' => $id]);
     }
     public function getProduct()
     {
-        return view('user.product', ['id' => null]);
+        return view('admin.product', ['id' => null]);
     }
     public function addProduct()
     {
