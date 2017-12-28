@@ -10,25 +10,32 @@ use Session;
 
 class ProductController extends Controller
 {
+    public function getSpa ()
+    {
+        return view('shop.spa');
+    }
     public function getIndex(Request $request)
     {
         //$products = Product::all();
         $inCart = Session::get('cart');
-        if ($inCart!=null) {
+        if ($inCart) {
             $products = Product::whereNotIn('id', $inCart)->get();
         } else {
             $products = Product::all();
         }
         return view('shop.index', ['products' => $products]);
+        //return $products;
     }
     public function getCart() 
     {
         $inCart = Session::has('cart') ? Session::get('cart') : [];
-        if (count($inCart) == 0) {
+        if (count($inCart)) {
             return view('shop.shopping-cart', ['display' => false]);
+            //return [];
         } else {
             $products = Product::whereIn('id', $inCart)->get();
-            return view('shop.shopping-cart', ['display' => true, 'products' => $products]);  
+            return view('shop.shopping-cart', ['display' => true, 'products' => $products]);
+            //return $products;  
         }         
     }
     public function getAddToCart(Request $request, $id) 

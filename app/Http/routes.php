@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/spa', [
+    'uses' => 'ProductController@getSpa',
+    'as' => 'product.index'
+]);
 Route::get('/', [
     'uses' => 'ProductController@getIndex',
     'as' => 'product.index'
